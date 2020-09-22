@@ -1,0 +1,25 @@
+[
+  {
+    "summary": "You can Sign-up either using your google account or your own account with password.",
+    "steps": ["Go to the menu","Click on sign up","You will be redirected to a sign up page."]
+  },
+  {
+    "summary": "By clicking on the plus button at the bottom of the table, the Log will be created.",
+    "steps": ["Sign in or create an account",
+      "After signing in, You will see the logs page",
+      "Navigate to the logs page",
+    "Create new log",
+      "Edit log",
+    "Description is optional and it is there to add additional information"]
+  },
+  {
+    "summary": "Each exercise will be given number of set,reps, and weight used for each sets.",
+    "steps": ["Sign in or create an account",
+    "After signing in, navigate to the logs page",
+    "If you have not created a log, first create a log",
+    "Add new exercise",
+    "Each exercise will be given a name and associated set,reps,and weight",
+      "Edit Exercise",
+    "Click on Save"]
+  }
+]

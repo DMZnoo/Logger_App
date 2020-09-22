@@ -1,0 +1,16 @@
+[
+  {
+    "id": "log",
+    "origin": "logs",
+    "post": "create",
+    "title": "My Logbook",
+    "name": ""
+  },
+  {
+    "id": "exercise",
+    "origin": "logs",
+    "add": "add",
+    "update": "update",
+    "title": "My Log"
+  }
+]

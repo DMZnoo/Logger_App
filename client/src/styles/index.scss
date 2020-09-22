@@ -1,0 +1,227 @@
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  font-family: 'Francois One', sans-serif;
+}
+.trans-button:focus{
+  outline:none;
+  background:none;
+  border: none;
+
+  outline-offset: 0;
+}
+
+.trans-button{
+  background:none;
+  border: none;
+
+  outline:none;
+
+}
+footer {
+  padding: 2.5rem 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: .05rem solid #e5e5e5;
+}
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+#content-wrap {
+  padding-bottom: 7rem;    /* Footer height */
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;            /* Footer height */
+}
+
+.pagination
+{
+  width:100%;
+  position: absolute;
+  bottom: 4.2em;
+  overflow:hidden;
+  align-content: center;
+}
+.pagination *
+{
+  width:100%;
+  align-content: center;
+
+}
+
+
+.page-item {
+  & a {
+    background: rgba(17, 137, 132 ,0) !important;
+    transition: all .25s linear;
+      border-radius: 1vw;
+  }
+  & a:hover{
+    background: rgba(17, 137, 132  ,1) !important;
+    border-radius: 15vw;
+    transition: all .25s linear;
+      box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+  }
+}
+.pagination .active{
+  & span{
+    background: rgba(17, 137, 132  ,1) !important;
+    border-radius: 15vw;
+  }
+
+}
+
+.loading{
+  position: fixed;
+  z-index: 999;
+  overflow: visible;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+}
+
+.jumbotron{
+  font-family: 'Francois One', sans-serif;
+  color:white;
+  & h1{
+    font-size:5vw
+  }
+}
+
+html,body {
+  background: rgba(9, 15, 43 ,1);
+  background-size:cover;
+}
+#ex-types .card {
+  background: rgba(9, 43, 43 ,0.8);
+  border-radius: 2px;
+  margin: 10px;
+  display: inline-block;
+  align-content: center;
+  transition: all .25s linear;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+}
+
+#ex-list-desc .card{
+  color:white;
+  background: rgba(9, 43, 43 ,0.8);
+  border-radius: 2px;
+  margin: 10px;
+  align-content: center;
+  transition: all .25s linear;
+   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+  
+  
+}
+#ex-types .card:hover, #ex-list-desc .card:hover{
+  background: rgba(9, 43, 43 ,1);
+  box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+}
+
+#ex-types, #ex-list-desc, .jumbotron{
+  & button, & a {
+    transition: all .25s linear;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+  }
+  & button:hover, & a:hover{
+    transition: all .25s linear;
+    box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+  }
+}
+#button-tooltip ul li{
+  list-style-type: none;
+}
+
+
+
+
+@media (max-width:768px)
+{
+  input[type=checkbox]
+  {
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+    transform: scale(1.5);
+    padding: 1vw;
+    display:inline-block;
+  }
+  .editable-table{
+    width:100%;
+    font-size:1.55vh;
+    //position: relative;
+    //.editable-table * {
+    //  width:inherit;
+    //}
+
+
+
+  }
+  .table-view{
+    position:relative;
+    & .table {
+      display: inline-table;
+
+    }
+    & .table td {
+      text-align: center; /* center checkbox horizontally */
+      vertical-align: middle; /* center checkbox vertically */
+      width:2vw;
+    }
+    & .table th{
+      font-size:2vw;
+      text-align: center; /* center checkbox horizontally */
+      vertical-align: middle; /* center checkbox vertically */
+    }
+    & .table tbody{
+      font-size:1.8vw;
+    }
+  }
+}
+
+@media (min-width:768px)
+{
+  input[type=checkbox]
+  {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    transform: scale(2);
+    padding: 1vw;
+    display:inline-block;
+  }
+  .table-view{
+    position:relative;
+    & .table {
+      display: inline-table;
+
+    }
+    & .table td {
+      text-align: center; /* center checkbox horizontally */
+      vertical-align: middle; /* center checkbox vertically */
+    }
+    & .table th{
+      font-size:1.5vw;
+      text-align: center; /* center checkbox horizontally */
+      vertical-align: middle; /* center checkbox vertically */
+    }
+    & .table tbody{
+      font-size:1.2vw;
+    }
+  }
+}
+
+
