@@ -97,16 +97,7 @@ const SubmitUpdate = ({
         }}
         onClick={(e) => {
           e.preventDefault();
-          if (workoutIndex === -1) {
-            handleLog();
-          } else {
-            handleWorkout(isValues[isKeys.indexOf("_id")], workoutIndex);
-            SetEdit((isEdit) => [
-              ...isEdit.slice(0, workoutIndex),
-              !isEdit[workoutIndex],
-              ...isEdit.slice(workoutIndex + 1),
-            ]);
-          }
+          handleLog();
         }}
       >
         <MdDone size={"1.5em"} style={{ color: "green" }} />
@@ -131,19 +122,11 @@ const SubmitUpdate = ({
           borderStyle: "hidden",
         }}
         onClick={(e) => {
-          if (workoutIndex !== -1) {
-            SetEdit((isEdit) => [
-              ...isEdit.slice(0, workoutIndex),
-              !isEdit[workoutIndex],
-              ...isEdit.slice(workoutIndex + 1),
-            ]);
-          } else {
-            SetEdit((isEdit) => [
-              ...isEdit.slice(0, index),
-              !isEdit[index],
-              ...isEdit.slice(index + 1),
-            ]);
-          }
+          SetEdit((isEdit) => [
+            ...isEdit.slice(0, index),
+            !isEdit[index],
+            ...isEdit.slice(index + 1),
+          ]);
         }}
       >
         Cancel

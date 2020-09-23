@@ -11,8 +11,11 @@ import Swipe from "react-easy-swipe";
 import ToggleRemoval from "../partials/ToggleRemoval";
 import ToggleEdit from "../partials/ToggleEdit";
 import SubmitUpdate from "../partials/SubmitUpdate";
+import { useForm } from "react-hook-form";
+
 const ViewLogList = () => {
   const { user, isAuthenticated } = useAuth0();
+  const { register, handleSubmit } = useForm();
 
   const [isShown, SetShown] = useState([]);
   const [isEdit, SetEdit] = useState([]);
@@ -323,7 +326,7 @@ const ViewLogList = () => {
         })}
       </div>
       <div className={"d-inline-start"}>
-        <NewLogList updateData={fetchData} />
+        <NewLogList updateData={fetchData} user={user} />
         <ToggleRemoval isDelete={isDelete} onDelete={onDelete} target={"Log"} />
       </div>
     </>

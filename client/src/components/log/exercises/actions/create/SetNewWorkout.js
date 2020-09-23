@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { BrowserView, MobileView } from "react-device-detect";
+import { BrowserView, isMobile, MobileView } from "react-device-detect";
 import EditableTable from "../../../../partials/EditableTable";
 import SubmitWorkout from "./SubmitWorkout";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { FcPlus } from "react-icons/fc";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const SetNewWorkout = ({
@@ -14,24 +15,21 @@ const SetNewWorkout = ({
   SetNewExercise,
 }) => {
   const [isWorkoutDesc, SetWorkoutDesc] = useState([]);
-  const submitNewWorkout = (e, idx) => {
-    let exerciseName = document.querySelector(`#new-workout-name-${idx}`).value;
-    let exerciseDesc = document.querySelector(`#new-workout-desc-${idx}`).value;
-    if (exerciseName === null || exerciseName === "") {
-      alert("Please provide the name");
-      return;
-    }
+  const { register, handleSubmit } = useForm();
+
+  const submitNewWorkout = (data) => {
+    console.log(data);
     axios
-      .post(`api/logs/add/${isCurrID[idx]}`, {
-        name: exerciseName,
-        description: exerciseDesc,
-        set: isWorkoutDesc[idx].set,
-        reps: isWorkoutDesc[idx].reps,
-        weight: isWorkoutDesc[idx].weight,
+      .post(`api/logs/add/${isCurrID[logIndex]}`, {
+        name: data[`new-workout-name-${logIndex}`],
+        description: data[`new-workout-desc-${logIndex}`],
+        set: isWorkoutDesc[logIndex].set,
+        reps: isWorkoutDesc[logIndex].reps,
+        weight: isWorkoutDesc[logIndex].weight,
       })
       .then((response) => {
-        SetNewExercise(response.data, idx);
-        toggleNewWorkout(e, idx);
+        SetNewExercise(response.data, logIndex);
+        toggleNewWorkout(logIndex);
       })
       .catch((err) => {
         console.log(err);
@@ -44,8 +42,7 @@ const SetNewWorkout = ({
       ...isWorkoutDesc.slice(idx + 1),
     ]);
   };
-  const toggleNewWorkout = (e, index) => {
-    e.preventDefault();
+  const toggleNewWorkout = (index) => {
     SetShown((isShown) => [
       ...isShown.slice(0, index),
       !isShown[index],
@@ -57,7 +54,10 @@ const SetNewWorkout = ({
       {isShown[logIndex] && (
         <>
           <BrowserView>
-            <div className={"form-group"}>
+            <form
+              className={"form-group"}
+              onSubmit={handleSubmit(submitNewWorkout)}
+            >
               <label
                 for={`new-workout-name-${logIndex}`}
                 className={"bmd-label-floating"}
@@ -65,12 +65,11 @@ const SetNewWorkout = ({
                 Name:
               </label>
               <input
+                name={`new-workout-name-${logIndex}`}
+                ref={register({ required: true, minLength: 5, maxLength: 20 })}
                 size={25}
                 className={"form-control"}
-                id={`new-workout-name-${logIndex}`}
               />
-            </div>
-            <div className={"form-group"}>
               <label
                 for={`new-workout-desc-${logIndex}`}
                 className={"bmd-label-floating"}
@@ -80,10 +79,9 @@ const SetNewWorkout = ({
               <textarea
                 className={"form-control"}
                 rows={5}
-                id={`new-workout-desc-${logIndex}`}
+                ref={register({ maxLength: 200 })}
+                name={`new-workout-desc-${logIndex}`}
               />
-            </div>
-            <div className={"container"} style={{ overflowX: "auto" }}>
               <EditableTable
                 index={logIndex}
                 thead={["Set", "Reps", "Weight"]}
@@ -98,47 +96,57 @@ const SetNewWorkout = ({
                 className={"d-flex d-inline-flex"}
                 style={{ float: "right" }}
               >
-                <SubmitWorkout
-                  submitNewWorkout={submitNewWorkout}
-                  cancelNewWorkout={toggleNewWorkout}
-                  index={logIndex}
-                />
+                <Button
+                  type={"submit"}
+                  className={isMobile ? "" : "p-2 mt-5"}
+                  variant={"outline-primary"}
+                >
+                  Submit
+                </Button>
+                <Button
+                  className={isMobile ? "" : "ml-2 mt-5"}
+                  variant={"outline-danger"}
+                  onClick={(e) => {
+                    toggleNewWorkout(logIndex);
+                  }}
+                >
+                  Cancel
+                </Button>
               </div>
-            </div>
+            </form>
           </BrowserView>
           <MobileView>
-            <div className={"container"} style={{ overflowX: "scroll" }}>
-              <Modal show={isShown[logIndex]}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Add new workout</Modal.Title>
-                </Modal.Header>
+            <Modal show={isShown[logIndex]}>
+              <Modal.Header closeButton>
+                <Modal.Title>Add new workout</Modal.Title>
+              </Modal.Header>
+              <form
+                className={"form-group"}
+                onSubmit={handleSubmit(submitNewWorkout)}
+              >
                 <Modal.Body className={"container"}>
-                  <div className={"form-group"}>
-                    <label
-                      htmlFor={`new-workout-name-${logIndex}`}
-                      className={"bmd-label-floating"}
-                    >
-                      Name:
-                    </label>
-                    <input
-                      size={25}
-                      className={"form-control"}
-                      id={`new-workout-name-${logIndex}`}
-                    />
-                  </div>
-                  <div className={"form-group"}>
-                    <label
-                      htmlFor={`new-workout-desc-${logIndex}`}
-                      className={"bmd-label-floating"}
-                    >
-                      Description:{" "}
-                    </label>{" "}
-                    <textarea
-                      className={"form-control"}
-                      rows={5}
-                      id={`new-workout-desc-${logIndex}`}
-                    />
-                  </div>
+                  <label
+                    htmlFor={`new-workout-name-${logIndex}`}
+                    className={"bmd-label-floating"}
+                  >
+                    Name:
+                  </label>
+                  <input
+                    size={25}
+                    className={"form-control"}
+                    name={`new-workout-name-${logIndex}`}
+                  />
+                  <label
+                    htmlFor={`new-workout-desc-${logIndex}`}
+                    className={"bmd-label-floating"}
+                  >
+                    Description:{" "}
+                  </label>{" "}
+                  <textarea
+                    className={"form-control"}
+                    rows={5}
+                    name={`new-workout-desc-${logIndex}`}
+                  />
                   <EditableTable
                     index={logIndex}
                     thead={["Set", "Reps", "Weight"]}
@@ -151,14 +159,25 @@ const SetNewWorkout = ({
                   />
                 </Modal.Body>
                 <Modal.Footer>
-                  <SubmitWorkout
-                    submitNewWorkout={submitNewWorkout}
-                    cancelNewWorkout={toggleNewWorkout}
-                    index={logIndex}
-                  />
+                  <Button
+                    type={"submit"}
+                    className={isMobile ? "" : "p-2 mt-5"}
+                    variant={"outline-primary"}
+                  >
+                    Submit
+                  </Button>
+                  <Button
+                    className={isMobile ? "" : "ml-2 mt-5"}
+                    variant={"outline-danger"}
+                    onClick={(e) => {
+                      toggleNewWorkout(logIndex);
+                    }}
+                  >
+                    Cancel
+                  </Button>
                 </Modal.Footer>
-              </Modal>
-            </div>
+              </form>
+            </Modal>
           </MobileView>
         </>
       )}

@@ -42,7 +42,6 @@ const ViewWorkoutList = ({
             ]);
             Object.values(log[1].data).forEach((data) => {
               console.log("Data", data);
-              // if () {
               SetKeys((isKeys) => [...isKeys, Object.keys(data)]);
               SetValues((isValues) => [...isValues, Object.values(data)]);
               SetWorkoutList((isWorkoutList) => [
@@ -52,14 +51,12 @@ const ViewWorkoutList = ({
               ]);
               SetEdit((isEdit) => [...isEdit, false]);
               SetDelete((isDelete) => [...isDelete, false]);
-              // }
             });
           }
         });
       });
     }
   }, []);
-
   const SetRoutine = (state, idx) => {
     SetValues((isValues) =>
       update(isValues, {
@@ -82,9 +79,7 @@ const ViewWorkoutList = ({
       ...isWorkoutList.slice(index + 1),
     ]);
   };
-
   const SetNewExercise = (data, idx) => {
-    console.log("INDEX", idx);
     SetWorkoutList((isWorkoutList) => [
       ...isWorkoutList.slice(0, idx),
       [],
@@ -102,15 +97,7 @@ const ViewWorkoutList = ({
       update(isWorkoutList, { [logIndex]: { $splice: [[exindex, 1]] } })
     );
     SetValues(update(isValues, { $splice: [[exindex, 1]] }));
-    // SetValues((isValues) => [
-    //   ...isValues.slice(exindex),
-    //   ...isValues.slice(exindex + 1),
-    // ]);
     SetKeys(update(isKeys, { $splice: [[exindex, 1]] }));
-    // SetKeys((isKeys) => [
-    //   ...isKeys.slice(exindex),
-    //   ...isKeys.slice(exindex + 1),
-    // ]);
   };
 
   if (isLogEdit !== Boolean(onLogEdit[index])) {
@@ -178,33 +165,10 @@ const ViewWorkoutList = ({
                     exercise={el}
                     exerciseIndex={exerciseIndex}
                     logIndex={index}
-                    isKeyList={isKeys}
-                  />
-                  <EditableTable
-                    index={exerciseIndex}
-                    thead={["Set", "Reps", "Weight"]}
-                    SetData={SetRoutine}
-                    style={{
-                      color: "black",
-                      width: "inherit",
-                      fontSize: "1.5vh",
-                      margin: "0",
-                    }}
-                    dataAvailable={[
-                      el[isKeys[exerciseIndex].indexOf("set")],
-                      el[isKeys[exerciseIndex].indexOf("reps")],
-                      el[isKeys[exerciseIndex].indexOf("weight")],
-                    ]}
-                  />
-                  <hr />
-                  <SubmitUpdate
-                    index={index}
-                    workoutIndex={exerciseIndex}
-                    isCurrID={isCurrID}
+                    isKeys={isKeys}
+                    SetRoutine={SetRoutine}
                     isEdit={isEdit}
                     SetEdit={SetEdit}
-                    isValues={el}
-                    isKeys={isKeys[exerciseIndex]}
                   />
                 </>
               )}
