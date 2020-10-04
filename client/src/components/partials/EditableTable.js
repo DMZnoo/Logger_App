@@ -19,14 +19,11 @@ const EditableTable = ({ index, thead, SetData, style, dataAvailable }) => {
   const [isWeightRange, SetWeightRange] = useState([...2000]);
 
   useEffect(() => {
-    SetData(
-      {
-        set: isDesc.set,
-        reps: isDesc.reps,
-        weight: isDesc.weight,
-      },
-      index
-    );
+    SetData({
+      set: isDesc.set,
+      reps: isDesc.reps,
+      weight: isDesc.weight,
+    });
   }, [isDesc]);
   let theadArr = [];
   for (let key in thead) {
@@ -75,14 +72,11 @@ const EditableTable = ({ index, thead, SetData, style, dataAvailable }) => {
         variant={"dark"}
         style={style !== undefined ? style : { color: "white" }}
         onChange={() => {
-          SetData(
-            {
-              set: isDesc.set,
-              reps: isDesc.reps,
-              weight: isDesc.weight,
-            },
-            index
-          );
+          SetData({
+            set: isDesc.set,
+            reps: isDesc.reps,
+            weight: isDesc.weight,
+          });
         }}
       >
         <thead className="thead-dark">

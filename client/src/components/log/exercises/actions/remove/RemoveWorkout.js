@@ -1,17 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MdRemoveCircle } from "react-icons/md";
-import axios from "axios";
-import update from "immutability-helper";
+import { Context } from "../../../../../context/AppContext";
 
-const RemoveWorkout = ({
-  exercise,
-  logIndex,
-  isCurrID,
-  updateData,
-  textColor = null,
-  exerciseIndex,
-  user,
-}) => {
+const RemoveWorkout = ({ logIndex, textColor = null, exerciseId }) => {
+  const { deleteExercise } = useContext(Context);
   return (
     <>
       <div className={"d-flex d-inline-flex"}>
@@ -24,20 +16,7 @@ const RemoveWorkout = ({
           }}
           onClick={(e) => {
             e.preventDefault();
-            console.log("deleting", exercise);
-            console.log("at", isCurrID[logIndex]);
-
-            axios
-              .put(`/api/logs/delete/${isCurrID[logIndex]}`, {
-                exerciseID: exercise,
-              })
-              .then((response) => {
-                console.log(response);
-                updateData(logIndex, exerciseIndex);
-              })
-              .catch((err) => {
-                console.log("ERROR:", err);
-              });
+            deleteExercise(logIndex, exerciseId);
           }}
         >
           <>

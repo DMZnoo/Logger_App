@@ -63,6 +63,7 @@ export const LOAD_EXERCISE = "LOAD_EXERCISE";
 export const loadUser = (username) => action(LOAD_USER, { username });
 export const loadLog = (_id) => action(LOAD_LOG, { _id });
 export const loadExercise = (_id) => action(LOAD_EXERCISE, { _id });
+s;
 
 // export const createLog = (data) => {
 //   return {

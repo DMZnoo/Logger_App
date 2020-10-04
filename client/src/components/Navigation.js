@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Nav, Navbar, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch } from "react-redux";
-import { signIn } from "../actions";
+import { Context } from "../context/AppContext";
 
-const Navigation = ({ persistor }) => {
+const Navigation = () => {
+  const { signIn, signOut, getLogs } = useContext(Context);
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const [isExpanded, setExpanded] = useState(false);
 
-  const dispatch = useDispatch();
   return (
     <div>
       <Navbar
@@ -38,7 +37,14 @@ const Navigation = ({ persistor }) => {
             </LinkContainer>
             {isAuthenticated && (
               <LinkContainer to="/logs" className="mt-2">
-                <Nav.Link onClick={() => setExpanded(false)}>Logs</Nav.Link>
+                <Nav.Link
+                  onClick={() => {
+                    getLogs(user.email);
+                    setExpanded(false);
+                  }}
+                >
+                  Logs
+                </Nav.Link>
               </LinkContainer>
             )}
             <LinkContainer to="/about" className="mt-2">
@@ -67,7 +73,7 @@ const Navigation = ({ persistor }) => {
               <Button
                 variant="danger"
                 onClick={() => {
-                  persistor.purge();
+                  signOut();
                   logout({
                     returnTo: window.location.origin,
                   });
@@ -80,7 +86,7 @@ const Navigation = ({ persistor }) => {
                 variant="outline-success"
                 onClick={() => {
                   loginWithRedirect().then(() => {
-                    dispatch(signIn(user.sub));
+                    signIn(user.sub);
                   });
                 }}
               >

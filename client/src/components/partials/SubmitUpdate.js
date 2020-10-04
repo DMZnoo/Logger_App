@@ -122,11 +122,7 @@ const SubmitUpdate = ({
           borderStyle: "hidden",
         }}
         onClick={(e) => {
-          SetEdit((isEdit) => [
-            ...isEdit.slice(0, index),
-            !isEdit[index],
-            ...isEdit.slice(index + 1),
-          ]);
+          SetEdit(!isEdit);
         }}
       >
         Cancel

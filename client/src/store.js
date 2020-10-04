@@ -4,10 +4,7 @@ import { routerMiddleware } from "connected-react-router";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import createRootReducer from "./reducers";
-import { createSagaMiddleware } from "redux-saga";
-
 export const history = createBrowserHistory();
-// const sagaMiddleware = createSagaMiddleware();
 
 const persistConfig = {
   key: "root",
@@ -23,15 +20,8 @@ export default (preloadedState) => {
   const store = createStore(
     persistedReducer,
     preloadedState,
-    compose(
-      applyMiddleware(routerMiddleware(history)),
-      window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
+    compose(applyMiddleware(routerMiddleware(history)))
   );
   const persistor = persistStore(store);
-
-  // sagaMiddleware.run(rootSaga);
-
   return { store, persistor };
 };

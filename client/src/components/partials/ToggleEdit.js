@@ -3,7 +3,6 @@ import { FaRegEdit } from "react-icons/fa";
 
 const ToggleEdit = ({
   isEdit,
-  index = -1,
   SetEdit,
   target,
   textColor = null,
@@ -11,25 +10,16 @@ const ToggleEdit = ({
 }) => {
   return (
     <>
-      {!isEdit[index] && (
+      {!isEdit && (
         <div className={"d-flex d-inline-flex"} style={{ textAlign: "center" }}>
           <button
-            id={index}
             style={{
               borderRadius: "10vw",
               background: "none",
               borderStyle: "hidden",
             }}
             onClick={() => {
-              if (multiple) {
-                SetEdit((isEdit) => [
-                  ...isEdit.slice(0, index),
-                  !isEdit[index],
-                  ...isEdit.slice(index + 1),
-                ]);
-              } else {
-                SetEdit(!isEdit);
-              }
+              SetEdit(!isEdit);
             }}
           >
             <>

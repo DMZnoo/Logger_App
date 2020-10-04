@@ -1,30 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Accordion, Button, Card } from "react-bootstrap";
 import { FcPlus } from "react-icons/fc";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import { Context } from "../../../../context/AppContext";
 
-const NewLogList = ({ updateData, user }) => {
+const NewLogList = ({ user }) => {
+  const { createLogs } = useContext(Context);
   const [isNewLog, SetNewLog] = useState(null);
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
-    //add new log
-    await axios
-      .post(`/api/logs/create`, {
-        username: user.email,
-        title: data["new-log-title"],
-        description: data["new-log-desc"],
-        date: new Date(),
-      })
-      .then((res) => {
-        console.log("response");
-        updateData(res.data, true, true);
-        SetNewLog(null);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    createLogs({
+      username: user.email,
+      title: data["new-log-title"],
+      description: data["new-log-desc"],
+      date: new Date(),
+    });
   };
   return (
     <>

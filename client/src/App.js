@@ -13,12 +13,9 @@ import PrivateRoute from "./components/user/PrivateRoute";
 import CardioResults from "./components/exercise/CardioResults";
 import About from "./components/About";
 import Breadcrumbs from "./components/BreadCrumbs";
-import { useSelector } from "react-redux";
-const App = ({ persistor }) => {
-  const isUser = useSelector((state) => state.userInfo.isSignedIn);
+import ViewLogDescription from "./components/log/ViewLogDescription";
+const App = () => {
   const { isLoading } = useAuth0();
-  const location = useLocation();
-  useEffect(() => {}, [location]);
   if (isLoading) {
     return <Loading />;
   }
@@ -27,7 +24,7 @@ const App = ({ persistor }) => {
     <div className="container">
       <div id="page-container">
         <div id="content-wrap">
-          <Navigation persistor={persistor} isUser={isUser} />
+          <Navigation />
           <br />
           <Route>
             <Breadcrumbs />
@@ -37,7 +34,12 @@ const App = ({ persistor }) => {
           <Route exact path="/exlist" component={ExerciseList} />
           <Route path="/exlist/cardio" component={CardioResults} />
           <Route path="/exlist/weight_lifting" component={ExerciseResults} />
-          <PrivateRoute path={"/logs"} component={ViewLogList} />
+          <PrivateRoute exact path={"/logs"} component={ViewLogList} />
+          <PrivateRoute
+            exact
+            path={"/logs/description"}
+            component={ViewLogDescription}
+          />
           <PrivateRoute path="/profile" component={Profile} />
         </div>
 

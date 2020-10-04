@@ -1,11 +1,9 @@
 const express = require("express");
-const cors = require("cors");
 const mongoose = require("mongoose");
 
-require("dotenv").config();
+require("dotenv").config({"path":"/var/www/Exercise_Logger/backend/.env-production"});
 
 const app = express();
-app.use(cors());
 const port = process.env.PORT || 5000;
 
 const uri = process.env.ATLAS_URI;
